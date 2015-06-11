@@ -1,6 +1,6 @@
 {
   "name": "noxy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Noxy is a node based reverse proxy service, configurable through a config file",
   "main": "main.js",
   "author": "Mathew Henson",

@@ -6,7 +6,7 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.1"
+  echo "0.0.2"
 }
 
 echo "cleaning up folder..."
@@ -14,21 +14,6 @@ echo "cleaning up folder..."
 # Remove node modules
 if [ -d "node_modules" ]; then
 	rm node_modules -R
-fi
-
-# Remove views
-if [ -d "views" ]; then
-	rm views -R
-fi
-
-# Remove resources
-if [ -d "resources" ]; then
-	rm resources -R
-fi
-
-# Remove lib
-if [ -d "lib" ]; then
-	rm lib -R
 fi
 
 echo "Downloading latest version from github $(version)"
@@ -40,7 +25,7 @@ unzip -o "v$(version).zip" "noxy-$(version)/*"
 # Moves the server folder to the current directory
 mv noxy-$(version)/server/* .
 
-# Remove noxy-master
+# Remove noxy folder
 if [ -d "noxy-$(version)" ]; then
 	rm noxy-$(version) -R
 fi
