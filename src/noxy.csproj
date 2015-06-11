@@ -32,7 +32,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="lib\definitions\node-http-proxy.d.ts" />
+    <TypeScriptCompile Include="lib\definitions\http-proxy.ts" />
     <TypeScriptCompile Include="lib\definitions\body-parser.d.ts" />
     <TypeScriptCompile Include="lib\definitions\es6-promise.d.ts" />
     <TypeScriptCompile Include="lib\definitions\express.d.ts" />
@@ -40,6 +40,7 @@
     <TypeScriptCompile Include="lib\definitions\node.d.ts" />
     <TypeScriptCompile Include="lib\definitions\webinate-colors.d.ts" />
     <TypeScriptCompile Include="lib\Main.ts" />
+    <TypeScriptCompile Include="lib\VirtualServer.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\server\package.json">
@@ -82,7 +83,7 @@
     <TypeScriptSourceMap>False</TypeScriptSourceMap>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
-    <TypeScriptOutDir>$(ProjectDir)/server</TypeScriptOutDir>
+    <TypeScriptOutDir>$(ProjectDir)..\server</TypeScriptOutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptRemoveComments>true</TypeScriptRemoveComments>

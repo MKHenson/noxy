@@ -1,7 +1,7 @@
 ﻿// Type definitions for node-http-proxy
 // https://github.com/nodejitsu/node-http-proxy
 
-declare module "node-http-proxy" {
+declare module "http-proxy" {
 
     export interface ProxyServerOptions
     {
