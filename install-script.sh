@@ -33,7 +33,7 @@ fi
 # Remove the zip file
 rm "v$(version).zip"
 
-if [ !-d "config.json" ]; then
+if [ !-f "config.json" ]; then
 	# Copy the example config to a config.json
 	cp "example-config.json" "config.json"
 fi
