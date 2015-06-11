@@ -11,6 +11,7 @@ var VirtualServer = (function () {
     */
     function VirtualServer(proxy, config) {
         var server = http.createServer(function (req, res) {
+            colors.log(colors.yellow(req.headers.host));
             // You can define here your custom logic to handle the request
             // and then proxy the request.
             proxy.web(req, res, { target: config.target });

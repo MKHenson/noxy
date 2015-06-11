@@ -2,7 +2,7 @@
 import * as proxyServer from "http-proxy";
 import * as fs from "fs";
 import * as http from "http";
-import {VirtualServer} from "VirtualServer";
+import {VirtualServer} from "./VirtualServer";
 
 colors.log(colors.yellow("Attempting to start up proxy server..."));
 

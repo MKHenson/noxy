@@ -1,7 +1,7 @@
 var colors = require("webinate-colors");
 var proxyServer = require("http-proxy");
 var fs = require("fs");
-var VirtualServer_1 = require("VirtualServer");
+var VirtualServer_1 = require("./VirtualServer");
 colors.log(colors.yellow("Attempting to start up proxy server..."));
 // Make sure the config path argument is there
 if (process.argv.length < 3) {
