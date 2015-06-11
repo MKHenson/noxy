@@ -34,7 +34,8 @@ catch (err)
 }
 
 // Creating the proxy
-var proxy = proxyServer.createProxyServer().listen(80);
+var proxy = proxyServer.createProxyServer();
+
 
 //
 // Create your custom server and just call `proxy.web()` to proxy
@@ -47,3 +48,5 @@ var server = http.createServer(function(req, res)
     // and then proxy the request.
     proxy.web(req, res, { target: config.target });
 });
+
+server.listen(config.port);

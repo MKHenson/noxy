@@ -91,12 +91,12 @@ declare module "node-http-proxy" {
         /**
         * Sends a http(s) request
         */
-        web(req, res, options?, callback?: Function);
+        web(req, res, options?: ProxyServerOptions, callback?: Function);
 
         /**
         * Sends a websocket request
         */
-        ws(req, socket, head, options?);
+        ws(req, socket, head, options?: ProxyServerOptions);
 
         /**
         * Makes the proxy listen on a port
