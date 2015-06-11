@@ -1,0 +1,9 @@
+{
+  "proxies": [
+    {
+      "target": "http://localhost:5001/",
+      "port": 80,
+      "host": "localhost:80"
+    }
+  ]
+}
