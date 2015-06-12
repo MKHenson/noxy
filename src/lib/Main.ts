@@ -3,6 +3,7 @@ import * as proxyServer from "http-proxy";
 import * as fs from "fs";
 import * as http from "http";
 import {VirtualServer} from "./VirtualServer";
+import {IConfigFile} from "./Config";
 
 colors.log(colors.yellow("Attempting to start up proxy server..."));
 
@@ -22,7 +23,7 @@ if (!fs.existsSync(process.argv[2]))
 
 // We have a valid file path, now lets try load it...
 var configPath : string = process.argv[2];
-var config: any;
+var config: IConfigFile;
 
 try
 {
@@ -37,6 +38,16 @@ catch (err)
 
 // Creating the proxy
 var proxy = proxyServer.createProxyServer();
+
+// Listen for the `error` event on `proxy`.
+proxy.on("error", function (err, req, res)
+{
+    res.writeHead(500, {
+        "Content-Type": "text/plain"
+    });
+
+    res.end(err);
+});
 
 try 
 {

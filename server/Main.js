@@ -26,6 +26,13 @@ catch (err) {
 }
 // Creating the proxy
 var proxy = proxyServer.createProxyServer();
+// Listen for the `error` event on `proxy`.
+proxy.on("error", function (err, req, res) {
+    res.writeHead(500, {
+        "Content-Type": "text/plain"
+    });
+    res.end(err);
+});
 try {
     // Now create each of the virtual servers
     for (var i = 0, l = config.proxies.length; i < l; i++)

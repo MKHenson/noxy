@@ -32,6 +32,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="lib\Config.d.ts" />
     <TypeScriptCompile Include="lib\definitions\http-proxy.d.ts" />
     <TypeScriptCompile Include="lib\definitions\body-parser.d.ts" />
     <TypeScriptCompile Include="lib\definitions\es6-promise.d.ts" />
