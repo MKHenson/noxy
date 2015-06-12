@@ -62,7 +62,7 @@ var VirtualServer = (function () {
             // You can define here your custom logic to handle the request
             // and then proxy the request.
             for (var i = 0, l = this._cfg.routes.length; i < l; i++) {
-                if (req.headers.host.search(new RegExp(cfg.routes[i].path))) {
+                if (req.headers.host.match(new RegExp(cfg.routes[i].path))) {
                     colors.log(colors.yellow("Received: '" + req.headers.host + "', redirecting to '" + cfg.routes[i].target + "'"));
                     proxy.web(req, res, {
                         target: cfg.routes[i].target,
