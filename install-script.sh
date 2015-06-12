@@ -6,16 +6,10 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.2"
+  echo "0.0.3"
 }
 
 echo "cleaning up folder..."
-
-# Remove node modules
-if [ -d "node_modules" ]; then
-	rm node_modules -R
-fi
-
 echo "Downloading latest version from github $(version)"
 
 #download latest
