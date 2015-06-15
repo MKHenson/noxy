@@ -40,13 +40,13 @@ catch (err)
 var proxy = proxyServer.createProxyServer();
 
 // Listen for the `error` event on `proxy`.
-proxy.on("error", function (err, req, res)
+proxy.on("error", function (err: Error, req: http.ServerRequest, res: http.ServerResponse)
 {
     res.writeHead(500, {
         "Content-Type": "text/plain"
     });
 
-    res.end(err);
+    res.end(err.message);
 });
 
 try 
