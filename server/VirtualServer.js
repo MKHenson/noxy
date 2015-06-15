@@ -70,6 +70,7 @@ var VirtualServer = (function () {
                         target: cfg.routes[i].target,
                         secure: cfg.routes[i].secure
                     });
+                    return;
                 }
             }
         }
