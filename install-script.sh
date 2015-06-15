@@ -6,7 +6,7 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.4"
+  echo "0.0.5"
 }
 
 echo "cleaning up folder..."

@@ -1,11 +1,12 @@
 {
   "name": "noxy",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Noxy is a node based reverse proxy service, configurable through a config file",
   "main": "main.js",
   "author": "Mathew Henson",
   "dependencies": {
     "webinate-colors": "~0.1.34",
+    "winston": "~1.0.0",
     "http-proxy": "~1.11.1"
   }
 }

@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as http from "http";
 import {VirtualServer} from "./VirtualServer";
 import {IConfigFile} from "./Config";
+import * as winston from "winston";
 
 colors.log(colors.yellow("Attempting to start up proxy server..."));
 
@@ -51,6 +52,9 @@ proxy.on("error", function (err: Error, req: http.ServerRequest, res: http.Serve
 
 try 
 {
+    // Create logger
+    winston.add(winston.transports.File, { filename: 'live-logs.log', maxsize: 50000000, maxFiles: 1, tailable: true });
+
     // Now create each of the virtual servers
     for (var i = 0, l = config.proxies.length; i < l; i++)
         new VirtualServer(proxy, config.proxies[i]);

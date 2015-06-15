@@ -2,6 +2,7 @@ var colors = require("webinate-colors");
 var http = require("http");
 var https = require("https");
 var fs = require("fs");
+var winston = require("winston");
 /**
 * A virtual server that proxies its requests to other ports
 */
@@ -59,11 +60,12 @@ var VirtualServer = (function () {
         if (req.headers && req.headers.host) {
             var cfg = this._cfg;
             var proxy = this._proxy;
+            var fullURI = req.headers.host + req.url;
             // You can define here your custom logic to handle the request
             // and then proxy the request.
             for (var i = 0, l = this._cfg.routes.length; i < l; i++) {
-                if (req.headers.host.match(new RegExp(cfg.routes[i].path))) {
-                    colors.log(colors.yellow("Received: '" + req.headers.host + "', redirecting to '" + cfg.routes[i].target + "'"));
+                if (fullURI.match(new RegExp(cfg.routes[i].path))) {
+                    winston.log("info", "Received: '" + fullURI + "' from '" + (req.headers.referer ? req.headers.referer : "") + "', redirecting to '" + cfg.routes[i].target + "'");
                     proxy.web(req, res, {
                         target: cfg.routes[i].target,
                         secure: cfg.routes[i].secure

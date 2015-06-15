@@ -2,6 +2,7 @@ var colors = require("webinate-colors");
 var proxyServer = require("http-proxy");
 var fs = require("fs");
 var VirtualServer_1 = require("./VirtualServer");
+var winston = require("winston");
 colors.log(colors.yellow("Attempting to start up proxy server..."));
 // Make sure the config path argument is there
 if (process.argv.length < 3) {
@@ -34,6 +35,8 @@ proxy.on("error", function (err, req, res) {
     res.end(err.message);
 });
 try {
+    // Create logger
+    winston.add(winston.transports.File, { filename: 'live-logs.log', maxsize: 50000000, maxFiles: 1, tailable: true });
     // Now create each of the virtual servers
     for (var i = 0, l = config.proxies.length; i < l; i++)
         new VirtualServer_1.VirtualServer(proxy, config.proxies[i]);
