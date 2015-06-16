@@ -4,27 +4,22 @@
 # Stops the execution of a script if a command or pipeline has an error
 set -e
 
-# Functiom that prints the latest stable version
-version() {
-  echo "0.0.5"
-}
-
-echo "Downloading latest version from github $(version)"
+echo "Downloading latest version from github dev"
 
 #download latest
-wget https://github.com/MKHenson/noxy/archive/v$(version).zip
-unzip -o "v$(version).zip" "noxy-$(version)/*"
+wget https://github.com/MKHenson/noxy/archive/dev.zip
+unzip -o "dev.zip" "noxy-dev/*"
 
 # Moves the server folder to the current directory
-cp -r noxy-$(version)/server/* .
+cp -r noxy-dev/server/* .
 
 # Remove noxy temp folder
-if [ -d "noxy-$(version)" ]; then
-	rm noxy-$(version) -R
+if [ -d "noxy-dev" ]; then
+	rm noxy-dev -R
 fi
 
 # Remove the zip file
-rm "v$(version).zip"
+rm "dev.zip"
 
 # Copy the example config to a config.json as long as config.json does not exist
 if [ ! -f "config.json" ]; then	
