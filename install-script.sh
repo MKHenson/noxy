@@ -9,7 +9,6 @@ version() {
   echo "0.0.5"
 }
 
-echo "cleaning up folder..."
 echo "Downloading latest version from github $(version)"
 
 #download latest
@@ -17,9 +16,9 @@ wget https://github.com/MKHenson/noxy/archive/v$(version).zip
 unzip -o "v$(version).zip" "noxy-$(version)/*"
 
 # Moves the server folder to the current directory
-mv noxy-$(version)/server/* .
+cp -r noxy-$(version)/server/* .
 
-# Remove noxy folder
+# Remove noxy temp folder
 if [ -d "noxy-$(version)" ]; then
 	rm noxy-$(version) -R
 fi
@@ -27,8 +26,8 @@ fi
 # Remove the zip file
 rm "v$(version).zip"
 
-if [ ! -f "config.json" ]; then
-	# Copy the example config to a config.json
+# Copy the example config to a config.json as long as config.json does not exist
+if [ ! -f "config.json" ]; then	
 	cp "example-config.json" "config.json"
 fi
 
