@@ -44,13 +44,11 @@ var VirtualServer = (function () {
                 winston.info("Virtual secure server running, listening on port " + serverConfig.port, { process: pid });
             });
         }
-        else {
-            // Create server and listen on the port
-            var server = http.createServer(this.onServerRequest.bind(this));
-            server.listen(serverConfig.port, function () {
-                winston.info("Virtual server running, listening on port " + serverConfig.port, { process: pid });
-            });
-        }
+        // Create server and listen on the port
+        var server = http.createServer(this.onServerRequest.bind(this));
+        server.listen(serverConfig.port, function () {
+            winston.info("Virtual server running, listening on port " + serverConfig.port, { process: pid });
+        });
     }
     /**
     * Creates an instance of the virtual server

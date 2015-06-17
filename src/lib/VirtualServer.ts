@@ -66,15 +66,14 @@ export class VirtualServer
                 winston.info(`Virtual secure server running, listening on port ${serverConfig.port}`, { process: pid });
             });
         }
-        else
+
+
+        // Create server and listen on the port
+        var server = http.createServer(this.onServerRequest.bind(this));
+        server.listen(serverConfig.port, function()
         {
-            // Create server and listen on the port
-            var server = http.createServer(this.onServerRequest.bind(this));
-            server.listen(serverConfig.port, function()
-            {
-                winston.info(`Virtual server running, listening on port ${serverConfig.port}`, { process: pid });
-            });
-        }
+            winston.info(`Virtual server running, listening on port ${serverConfig.port}`, { process: pid });
+        });
     }
 
     /**
