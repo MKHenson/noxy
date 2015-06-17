@@ -61,7 +61,7 @@ export class VirtualServer
             var httpsServer = https.createServer({ key: privateKey, cert: theCert, passphrase: config.sslPassPhrase, ca: caChain }, this.onServerRequest.bind(this));
             httpsServer.listen(config.port, function ()
             {
-                console.log(`Virtual secure server running, listening on port ${config.port}`);
+                winston.info(`Virtual secure server running, listening on port ${config.port}`, { process: process.pid });
             });
         }
         else
@@ -70,7 +70,7 @@ export class VirtualServer
             var server = http.createServer(this.onServerRequest.bind(this));
             server.listen(config.port, function()
             {
-                colors.log(colors.green(`Virtual server running, listening on port ${config.port}`));
+                winston.info(`Virtual server running, listening on port ${config.port}`, { process: process.pid });
             });
         }
     }
@@ -94,7 +94,7 @@ export class VirtualServer
             {
                 if (fullURI.match(new RegExp(cfg.routes[i].path)))
                 {
-                    winston.log("info", `Received: '${fullURI}' from '${(req.headers.referer ? req.headers.referer : "") }', redirecting to '${cfg.routes[i].target}'`);
+                    winston.info(`Received: '${fullURI}' from '${(req.headers.referer ? req.headers.referer : "") }', redirecting to '${cfg.routes[i].target}'`, { process: process.pid });
                     
                     proxy.web(req, res, <ProxyServerOptions>{
                         target: cfg.routes[i].target,

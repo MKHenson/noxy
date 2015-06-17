@@ -1,47 +1,27 @@
-var colors = require("webinate-colors");
-var proxyServer = require("http-proxy");
-var fs = require("fs");
-var VirtualServer_1 = require("./VirtualServer");
-var winston = require("winston");
-colors.log(colors.yellow("Attempting to start up proxy server..."));
-// Make sure the config path argument is there
-if (process.argv.length < 3) {
-    colors.log(colors.red("No config file specified. Please start noxy with the config path in the argument list. Eg: node Main.js ./config.js"));
-    process.exit();
-}
-// Make sure the file exists
-if (!fs.existsSync(process.argv[2])) {
-    colors.log(colors.red("Could not locate the config file at '" + process.argv[2] + "'"));
-    process.exit();
-}
-// We have a valid file path, now lets try load it...
-var configPath = process.argv[2];
-var config;
-try {
-    // Load config
-    config = JSON.parse(fs.readFileSync(configPath, "utf8"));
-}
-catch (err) {
-    colors.log(colors.red(err));
-    process.exit();
-}
-// Creating the proxy
-var proxy = proxyServer.createProxyServer();
-// Listen for the `error` event on `proxy`.
-proxy.on("error", function (err, req, res) {
-    res.writeHead(500, {
-        "Content-Type": "text/plain"
+var cluster = require("cluster");
+var os = require("os");
+var numCPUs = os.cpus().length;
+if (cluster.isMaster) {
+    // Fork workers.
+    for (var i = 0; i < numCPUs; i++)
+        cluster.fork();
+    // List each of the process ID's
+    Object.keys(cluster.workers).forEach(function (id) {
+        console.log("Starting cluster with ID : " + cluster.workers[id].process.pid);
     });
-    res.end(err.message);
-});
-try {
-    // Create logger
-    winston.add(winston.transports.File, { filename: 'live-logs.log', maxsize: 50000000, maxFiles: 1, tailable: true });
-    // Now create each of the virtual servers
-    for (var i = 0, l = config.proxies.length; i < l; i++)
-        new VirtualServer_1.VirtualServer(proxy, config.proxies[i]);
+    // When a cluster dies - lets try start it up again
+    cluster.on('exit', function (deadWorker, code, signal) {
+        var worker = cluster.fork();
+        // Note the process IDs
+        var newPID = worker.process.pid;
+        var oldPID = deadWorker.process.pid;
+        console.log("Cluster " + worker.process.pid + " died");
+        console.log("Attempting to restart failed cluster");
+        // Log the event
+        console.log("worker " + oldPID + " died");
+        console.log("worker " + newPID + " born");
+    });
 }
-catch (err) {
-    colors.log(colors.red(err));
-    process.exit();
+else {
+    require("./Startup.js");
 }

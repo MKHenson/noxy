@@ -42,6 +42,7 @@
     <TypeScriptCompile Include="lib\definitions\webinate-colors.d.ts" />
     <TypeScriptCompile Include="lib\definitions\winston.d.ts" />
     <TypeScriptCompile Include="lib\Main.ts" />
+    <TypeScriptCompile Include="lib\Startup.ts" />
     <TypeScriptCompile Include="lib\VirtualServer.ts" />
   </ItemGroup>
   <ItemGroup>
