@@ -67,10 +67,16 @@ var VirtualServer = (function () {
             for (var i = 0, l = this._cfg.routes.length; i < l; i++) {
                 if (fullURI.match(new RegExp(cfg.routes[i].path))) {
                     winston.info("Received: '" + fullURI + "' from '" + (req.headers.referer ? req.headers.referer : "") + "', redirecting to '" + cfg.routes[i].target + "'", { process: this._pid });
-                    proxy.web(req, res, {
-                        target: cfg.routes[i].target,
-                        secure: cfg.routes[i].secure
-                    });
+                    if (cfg.routes[i].redirects) {
+                        res.writeHead(302, { 'Location': cfg.routes[i].target + "/" + (cfg.routes[i].keepPathURI ? req.url : "") });
+                        res.end();
+                    }
+                    else {
+                        proxy.web(req, res, {
+                            target: cfg.routes[i].target,
+                            secure: cfg.routes[i].secure
+                        });
+                    }
                     return;
                 }
             }

@@ -97,11 +97,19 @@ export class VirtualServer
                 if (fullURI.match(new RegExp(cfg.routes[i].path)))
                 {
                     winston.info(`Received: '${fullURI}' from '${(req.headers.referer ? req.headers.referer : "") }', redirecting to '${cfg.routes[i].target}'`, { process: this._pid });
-                    
-                    proxy.web(req, res, <ProxyServerOptions>{
-                        target: cfg.routes[i].target,
-                        secure: cfg.routes[i].secure
-                    });
+
+                    if (cfg.routes[i].redirects)
+                    {
+                        res.writeHead(302, { 'Location': `${cfg.routes[i].target}/${(cfg.routes[i].keepPathURI ? req.url : "" )}` });
+                        res.end();
+                    }
+                    else
+                    {
+                        proxy.web(req, res, <ProxyServerOptions>{
+                            target: cfg.routes[i].target,
+                            secure: cfg.routes[i].secure
+                        });
+                    }
 
                     return;
                 }

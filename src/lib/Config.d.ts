@@ -11,6 +11,8 @@
         path: string;
         target: string;
         secure: boolean;
+        redirects: boolean;
+        keepPathURI: boolean;
     }>;
 }
 

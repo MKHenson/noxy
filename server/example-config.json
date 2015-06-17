@@ -10,8 +10,9 @@
       "sslKey": "",
       "sslPassPhrase": "",
       "routes": [
-        { "path": "localhost", "target": "http://localhost:5001/", "secure": false },
-        { "path": "127.0.0.1", "target": "http://localhost:8001/", "secure": false }
+        { "path": "localhost", "target": "http://localhost:5001", "secure": false },
+        { "path": "127.0.0.1", "target": "http://localhost:8001", "secure": false },
+        { "path": "127.0.0.1:5002", "target": "http://localhost:5001", "secure": false, "redirect" :  true, "keepPathURI" : true }
       ]
     }
   ]
