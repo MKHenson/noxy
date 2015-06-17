@@ -7,6 +7,7 @@
     sslCert?: string;
     sslKey?: string;
     sslPassPhrase?: string;
+    sslPort: number;
     routes: Array<{
         path: string;
         target: string;
