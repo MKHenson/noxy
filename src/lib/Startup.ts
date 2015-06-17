@@ -1,5 +1,4 @@
-﻿import * as colors from "webinate-colors";
-import * as proxyServer from "http-proxy";
+﻿import * as proxyServer from "http-proxy";
 import * as fs from "fs";
 import * as http from "http";
 import {VirtualServer} from "./VirtualServer";
@@ -37,7 +36,7 @@ try
 }
 catch (err)
 {
-    colors.log(colors.red(err));
+    winston.error(err.toString(), { process: process.pid });
     process.exit();
 }
 
@@ -64,7 +63,7 @@ try
 }
 catch (err)
 {
-    colors.log(colors.red(err));
+    winston.error(err.toString(), { process: process.pid });
     process.exit();
 }
 

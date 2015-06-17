@@ -1,4 +1,3 @@
-var colors = require("webinate-colors");
 var proxyServer = require("http-proxy");
 var fs = require("fs");
 var VirtualServer_1 = require("./VirtualServer");
@@ -25,7 +24,7 @@ try {
     config = JSON.parse(fs.readFileSync(configPath, "utf8"));
 }
 catch (err) {
-    colors.log(colors.red(err));
+    winston.error(err.toString(), { process: process.pid });
     process.exit();
 }
 // Creating the proxy
@@ -43,6 +42,6 @@ try {
         new VirtualServer_1.VirtualServer(proxy, config.proxies[i]);
 }
 catch (err) {
-    colors.log(colors.red(err));
+    winston.error(err.toString(), { process: process.pid });
     process.exit();
 }

@@ -1,5 +1,4 @@
-﻿import * as colors from "webinate-colors";
-import * as http from "http";
+﻿import * as http from "http";
 import * as https from "https";
 import {Proxy, ProxyServerOptions} from "http-proxy";
 import {IConfig} from "./Config";
@@ -13,6 +12,7 @@ export class VirtualServer
 {
     private _proxy: Proxy;
     private _cfg: IConfig;
+    private _pid: number;
 
     /**
     * Creates an instance of the virtual server
@@ -23,31 +23,33 @@ export class VirtualServer
     {
         this._proxy = proxy;
         this._cfg = config;
+        this._pid = process.pid;
+        var pid = this._pid;
 
         // If we use SSL then start listening for that as well
         if (config.ssl)
         {
             if (config.sslIntermediate != "" && !fs.existsSync(config.sslIntermediate))
             {
-                colors.log(colors.red(`Could not find sslIntermediate: '${config.sslIntermediate}'`));
+                winston.error(`Could not find sslIntermediate: '${config.sslIntermediate}'`, { process: this._pid });
                 process.exit();
             }
 
             if (config.sslCert != "" && !fs.existsSync(config.sslCert))
             {
-                colors.log(colors.red(`Could not find sslIntermediate: '${config.sslCert}'`));
+                winston.error(`Could not find sslIntermediate: '${config.sslCert}'`, { process: this._pid });
                 process.exit();
             }
 
             if (config.sslRoot != "" && !fs.existsSync(config.sslRoot))
             {
-                colors.log(colors.red(`Could not find sslIntermediate: '${config.sslRoot}'`));
+                winston.error(`Could not find sslIntermediate: '${config.sslRoot}'`, { process: this._pid });
                 process.exit();
             }
 
             if (config.sslKey != "" && !fs.existsSync(config.sslKey))
             {
-                colors.log(colors.red(`Could not find sslIntermediate: '${config.sslKey}'`));
+                winston.error(`Could not find sslIntermediate: '${config.sslKey}'`, { process: this._pid });
                 process.exit();
             }
 
@@ -61,7 +63,7 @@ export class VirtualServer
             var httpsServer = https.createServer({ key: privateKey, cert: theCert, passphrase: config.sslPassPhrase, ca: caChain }, this.onServerRequest.bind(this));
             httpsServer.listen(config.port, function ()
             {
-                winston.info(`Virtual secure server running, listening on port ${config.port}`, { process: process.pid });
+                winston.info(`Virtual secure server running, listening on port ${config.port}`, { process: pid });
             });
         }
         else
@@ -70,7 +72,7 @@ export class VirtualServer
             var server = http.createServer(this.onServerRequest.bind(this));
             server.listen(config.port, function()
             {
-                winston.info(`Virtual server running, listening on port ${config.port}`, { process: process.pid });
+                winston.info(`Virtual server running, listening on port ${config.port}`, { process: pid });
             });
         }
     }
@@ -94,7 +96,7 @@ export class VirtualServer
             {
                 if (fullURI.match(new RegExp(cfg.routes[i].path)))
                 {
-                    winston.info(`Received: '${fullURI}' from '${(req.headers.referer ? req.headers.referer : "") }', redirecting to '${cfg.routes[i].target}'`, { process: process.pid });
+                    winston.info(`Received: '${fullURI}' from '${(req.headers.referer ? req.headers.referer : "") }', redirecting to '${cfg.routes[i].target}'`, { process: this._pid });
                     
                     proxy.web(req, res, <ProxyServerOptions>{
                         target: cfg.routes[i].target,
