@@ -61,7 +61,7 @@ var VirtualServer = (function () {
         if (req.headers && req.headers.host) {
             var cfg = this._cfg;
             var proxy = this._proxy;
-            var fullURI = (req.connection.encrypted ? "http" : "htts") + "://" + req.headers.host + req.url;
+            var fullURI = (req.connection.encrypted ? "https" : "http") + "://" + req.headers.host + req.url;
             // You can define here your custom logic to handle the request
             // and then proxy the request.
             for (var i = 0, l = this._cfg.routes.length; i < l; i++) {
