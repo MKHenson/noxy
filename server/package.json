@@ -1,7 +1,7 @@
 {
   "name": "noxy",
-  "version": "0.0.6",
-  "description": "Noxy is a node based reverse proxy service, configurable through a config file",
+  "version": "0.0.7",
+  "description": "Noxy is a node based proxy service, configurable through a config file",
   "main": "main.js",
   "author": "Mathew Henson",
   "dependencies": {
