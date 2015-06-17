@@ -88,7 +88,7 @@ export class VirtualServer
         {
             var cfg = this._cfg;
             var proxy = this._proxy;
-            var fullURI: string = req.headers.host + req.url;
+            var fullURI: string = `${((<any>req.connection).encrypted ? "http" : "htts")}://${req.headers.host}${req.url}`;
             
             // You can define here your custom logic to handle the request
             // and then proxy the request.
