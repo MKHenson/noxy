@@ -2,8 +2,6 @@ var proxyServer = require("http-proxy");
 var fs = require("fs");
 var VirtualServer_1 = require("./VirtualServer");
 var winston = require("winston");
-// Create logger
-winston.add(winston.transports.File, { filename: 'live-logs.log', maxsize: 50000000, maxFiles: 1, tailable: true });
 // Start logging th process
 winston.info("Attempting to start up proxy server...", { process: process.pid });
 // Make sure the config path argument is there
@@ -27,6 +25,9 @@ catch (err) {
     winston.error(err.toString(), { process: process.pid });
     process.exit();
 }
+// Create logger
+if (config.logFile && config.logFile != "")
+    winston.add(winston.transports.File, { filename: config.logFile, maxsize: 50000000, maxFiles: 1, tailable: true });
 // Creating the proxy
 var proxy = proxyServer.createProxyServer();
 // Listen for the `error` event on `proxy`.

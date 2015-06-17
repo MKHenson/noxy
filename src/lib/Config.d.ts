@@ -16,5 +16,6 @@
 
 export interface IConfigFile
 {
+    logFile: string;
     proxies: Array<IConfig>;
 }

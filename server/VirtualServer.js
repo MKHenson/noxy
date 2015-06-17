@@ -11,44 +11,44 @@ var VirtualServer = (function () {
     * @param {Proxy} proxy The proxy forwaring on the calls
     * @param {any} config The configuration of this virtual server
     */
-    function VirtualServer(proxy, config) {
+    function VirtualServer(proxy, serverConfig) {
         this._proxy = proxy;
-        this._cfg = config;
+        this._cfg = serverConfig;
         this._pid = process.pid;
         var pid = this._pid;
         // If we use SSL then start listening for that as well
-        if (config.ssl) {
-            if (config.sslIntermediate != "" && !fs.existsSync(config.sslIntermediate)) {
-                winston.error("Could not find sslIntermediate: '" + config.sslIntermediate + "'", { process: this._pid });
+        if (serverConfig.ssl) {
+            if (serverConfig.sslIntermediate != "" && !fs.existsSync(serverConfig.sslIntermediate)) {
+                winston.error("Could not find sslIntermediate: '" + serverConfig.sslIntermediate + "'", { process: this._pid });
                 process.exit();
             }
-            if (config.sslCert != "" && !fs.existsSync(config.sslCert)) {
-                winston.error("Could not find sslIntermediate: '" + config.sslCert + "'", { process: this._pid });
+            if (serverConfig.sslCert != "" && !fs.existsSync(serverConfig.sslCert)) {
+                winston.error("Could not find sslIntermediate: '" + serverConfig.sslCert + "'", { process: this._pid });
                 process.exit();
             }
-            if (config.sslRoot != "" && !fs.existsSync(config.sslRoot)) {
-                winston.error("Could not find sslIntermediate: '" + config.sslRoot + "'", { process: this._pid });
+            if (serverConfig.sslRoot != "" && !fs.existsSync(serverConfig.sslRoot)) {
+                winston.error("Could not find sslIntermediate: '" + serverConfig.sslRoot + "'", { process: this._pid });
                 process.exit();
             }
-            if (config.sslKey != "" && !fs.existsSync(config.sslKey)) {
-                winston.error("Could not find sslIntermediate: '" + config.sslKey + "'", { process: this._pid });
+            if (serverConfig.sslKey != "" && !fs.existsSync(serverConfig.sslKey)) {
+                winston.error("Could not find sslIntermediate: '" + serverConfig.sslKey + "'", { process: this._pid });
                 process.exit();
             }
-            var caChain = [fs.readFileSync(config.sslIntermediate), fs.readFileSync(config.sslRoot)];
-            var privateKey = config.sslKey ? fs.readFileSync(config.sslKey) : null;
-            var theCert = config.sslCert ? fs.readFileSync(config.sslCert) : null;
+            var caChain = [fs.readFileSync(serverConfig.sslIntermediate), fs.readFileSync(serverConfig.sslRoot)];
+            var privateKey = serverConfig.sslKey ? fs.readFileSync(serverConfig.sslKey) : null;
+            var theCert = serverConfig.sslCert ? fs.readFileSync(serverConfig.sslCert) : null;
             console.log("Attempting to start SSL server...");
             // Create server and listen on the port
-            var httpsServer = https.createServer({ key: privateKey, cert: theCert, passphrase: config.sslPassPhrase, ca: caChain }, this.onServerRequest.bind(this));
-            httpsServer.listen(config.port, function () {
-                winston.info("Virtual secure server running, listening on port " + config.port, { process: pid });
+            var httpsServer = https.createServer({ key: privateKey, cert: theCert, passphrase: serverConfig.sslPassPhrase, ca: caChain }, this.onServerRequest.bind(this));
+            httpsServer.listen(serverConfig.port, function () {
+                winston.info("Virtual secure server running, listening on port " + serverConfig.port, { process: pid });
             });
         }
         else {
             // Create server and listen on the port
             var server = http.createServer(this.onServerRequest.bind(this));
-            server.listen(config.port, function () {
-                winston.info("Virtual server running, listening on port " + config.port, { process: pid });
+            server.listen(serverConfig.port, function () {
+                winston.info("Virtual server running, listening on port " + serverConfig.port, { process: pid });
             });
         }
     }

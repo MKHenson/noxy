@@ -5,8 +5,6 @@ import {VirtualServer} from "./VirtualServer";
 import {IConfigFile} from "./Config";
 import * as winston from "winston";
 
-// Create logger
-winston.add(winston.transports.File, { filename: 'live-logs.log', maxsize: 50000000, maxFiles: 1, tailable: true });
 
 // Start logging th process
 winston.info("Attempting to start up proxy server...", { process: process.pid });
@@ -40,6 +38,11 @@ catch (err)
     process.exit();
 }
 
+
+// Create logger
+if (config.logFile && config.logFile != "")
+    winston.add(winston.transports.File, { filename: config.logFile, maxsize: 50000000, maxFiles: 1, tailable: true });
+
 // Creating the proxy
 var proxy = proxyServer.createProxyServer();
 
@@ -55,8 +58,6 @@ proxy.on("error", function (err: Error, req: http.ServerRequest, res: http.Serve
 
 try 
 {
-   
-
     // Now create each of the virtual servers
     for (var i = 0, l = config.proxies.length; i < l; i++)
         new VirtualServer(proxy, config.proxies[i]);
