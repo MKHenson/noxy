@@ -2,20 +2,30 @@ var proxyServer = require("http-proxy");
 var fs = require("fs");
 var VirtualServer_1 = require("./VirtualServer");
 var winston = require("winston");
+var yargs = require("yargs");
+var arguments = yargs.argv;
+// Saves logs to file
+if (arguments.logFile && arguments.logFile.trim() != "")
+    winston.add(winston.transports.File, { filename: arguments.logFile, maxsize: 50000000, maxFiles: 1, tailable: true });
+// If no logging - remove all transports
+if (arguments.logging && arguments.logging.toLowerCase().trim() == "false") {
+    winston.remove(winston.transports.File);
+    winston.remove(winston.transports.Console);
+}
 // Start logging th process
 winston.info("Attempting to start up proxy server...", { process: process.pid });
 // Make sure the config path argument is there
-if (process.argv.length < 3) {
-    winston.error("No config file specified. Please start noxy with the config path in the argument list. Eg: node Main.js ./config.js", { process: process.pid });
+if (!arguments.config || arguments.config.trim() == "") {
+    winston.error("No config file specified. Please start noxy with the config path in the argument list. Eg: node Main.js --config=\"./config.js\"", { process: process.pid });
     process.exit();
 }
 // Make sure the file exists
-if (!fs.existsSync(process.argv[2])) {
-    winston.error("Could not locate the config file at '" + process.argv[2] + "'", { process: process.pid });
+if (!fs.existsSync(arguments.config)) {
+    winston.error("Could not locate the config file at '" + arguments.config + "'", { process: process.pid });
     process.exit();
 }
 // We have a valid file path, now lets try load it...
-var configPath = process.argv[2];
+var configPath = arguments.config;
 var config;
 try {
     // Load config
@@ -25,9 +35,6 @@ catch (err) {
     winston.error(err.toString(), { process: process.pid });
     process.exit();
 }
-// Create logger
-if (config.logFile && config.logFile != "")
-    winston.add(winston.transports.File, { filename: config.logFile, maxsize: 50000000, maxFiles: 1, tailable: true });
 // Creating the proxy
 var proxy = proxyServer.createProxyServer();
 // Listen for the `error` event on `proxy`.

@@ -1,5 +1,4 @@
 {
-  "logFile": "logs.log",
   "proxies": [
     {
       "port": 80,

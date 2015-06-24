@@ -37,6 +37,7 @@
     <TypeScriptCompile Include="lib\definitions\es6-promise.d.ts" />
     <TypeScriptCompile Include="lib\definitions\node.d.ts" />
     <TypeScriptCompile Include="lib\definitions\winston.d.ts" />
+    <TypeScriptCompile Include="lib\definitions\yargs.d.ts" />
     <TypeScriptCompile Include="lib\Main.ts" />
     <TypeScriptCompile Include="lib\Startup.ts" />
     <TypeScriptCompile Include="lib\VirtualServer.ts" />
