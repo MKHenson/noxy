@@ -39,13 +39,13 @@ curl -o- https://raw.githubusercontent.com/MKHenson/noxy/dev/install-script-dev.
 
 5) To start noxy
 ```
-node Main.js --config="config.json""
+node Main.js --config="config.json" --loggin="true" --logFile="logs.log"
 ```
 
 By default noxy will run using all threads available to your application. If however memory is in short supply you
 can set the number of threads in the command line
 
 ```
-node Main.js --config="config.json" --numThreads="max"
-node Main.js --config="config.json" --numThreads="4"
+node Main.js --config="config.json" --numThreads="max" --loggin="true" --logFile="logs.log"
+node Main.js --config="config.json" --numThreads="4" --loggin="true" --logFile="logs.log"
 ```
