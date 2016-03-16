@@ -5,6 +5,10 @@ var VirtualServer_1 = require("./VirtualServer");
 var winston = require("winston");
 var yargs = require("yargs");
 var args = yargs.argv;
+// Add the console colours
+winston.addColors({ debug: 'green', info: 'cyan', silly: 'magenta', warn: 'yellow', error: 'red' });
+winston.remove(winston.transports.Console);
+winston.add(winston.transports.Console, { level: 'debug', colorize: true });
 // Saves logs to file
 if (args.logFile && args.logFile.trim() != "")
     winston.add(winston.transports.File, { filename: args.logFile, maxsize: 50000000, maxFiles: 1, tailable: true });

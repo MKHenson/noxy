@@ -8,9 +8,14 @@ import {IConfigFile} from "noxy";
 
 var args = yargs.argv;
 
+// Add the console colours
+winston.addColors({ debug: 'green', info: 'cyan', silly: 'magenta', warn: 'yellow', error: 'red' });
+winston.remove(winston.transports.Console);
+winston.add(winston.transports.Console, <any>{ level: 'debug', colorize: true });
+
 // Saves logs to file
 if (args.logFile && args.logFile.trim() != "")
-    winston.add(winston.transports.File, <winston.FileTransportOptions>{ filename: args.logFile, maxsize: 50000000, maxFiles: 1, tailable: true });
+    winston.add(winston.transports.File, <winston.TransportOptions>{ filename: args.logFile, maxsize: 50000000, maxFiles: 1, tailable: true });
 
 // If no logging - remove all transports
 if (args.logging && args.logging.toLowerCase().trim() == "false")
