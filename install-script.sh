@@ -6,7 +6,7 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.8"
+  echo "0.1.0"
 }
 
 echo "Downloading latest version from github $(version)"
@@ -27,7 +27,7 @@ fi
 rm "v$(version).zip"
 
 # Copy the example config to a config.json as long as config.json does not exist
-if [ ! -f "config.json" ]; then	
+if [ ! -f "config.json" ]; then
 	cp "example-config.json" "config.json"
 fi
 

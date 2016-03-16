@@ -2,7 +2,7 @@
 Noxy is a node based proxy service, configurable through a config file
 
 ## Current stable version
-* v0.0.8
+* v0.1.0
 
 ## Requirements
 * Node
