@@ -1,3 +1,4 @@
+"use strict";
 var http = require("http");
 var https = require("https");
 var fs = require("fs");
@@ -83,5 +84,5 @@ var VirtualServer = (function () {
             res.end("Host not recognised");
     };
     return VirtualServer;
-})();
+}());
 exports.VirtualServer = VirtualServer;
