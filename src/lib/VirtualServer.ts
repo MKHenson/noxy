@@ -1,9 +1,9 @@
 ﻿import * as http from "http";
 import * as https from "https";
 import {Proxy, ProxyServerOptions} from "http-proxy";
-import {IConfig, IConfigFile} from "./Config";
 import * as fs from "fs";
 import * as winston from "winston";
+import {IConfig} from "noxy";
 
 /**
 * A virtual server that proxies its requests to other ports
@@ -88,7 +88,7 @@ export class VirtualServer
             var cfg = this._cfg;
             var proxy = this._proxy;
             var fullURI: string = `${((<any>req.connection).encrypted ? "https" : "http")}://${req.headers.host}${req.url}`;
-            
+
             // You can define here your custom logic to handle the request
             // and then proxy the request.
             for (var i = 0, l = this._cfg.routes.length; i < l; i++)

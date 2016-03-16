@@ -2,18 +2,18 @@
 import * as fs from "fs";
 import * as http from "http";
 import {VirtualServer} from "./VirtualServer";
-import {IConfigFile} from "./Config";
 import * as winston from "winston";
 import * as yargs from "yargs";
+import {IConfigFile} from "noxy";
 
-var arguments = yargs.argv;
+var args = yargs.argv;
 
 // Saves logs to file
-if (arguments.logFile && arguments.logFile.trim() != "")
-    winston.add(winston.transports.File, { filename: arguments.logFile, maxsize: 50000000, maxFiles: 1, tailable: true });
+if (args.logFile && args.logFile.trim() != "")
+    winston.add(winston.transports.File, <winston.FileTransportOptions>{ filename: args.logFile, maxsize: 50000000, maxFiles: 1, tailable: true });
 
 // If no logging - remove all transports
-if (arguments.logging && arguments.logging.toLowerCase().trim() == "false")
+if (args.logging && args.logging.toLowerCase().trim() == "false")
 {
     winston.remove(winston.transports.File);
     winston.remove(winston.transports.Console);
@@ -23,21 +23,21 @@ if (arguments.logging && arguments.logging.toLowerCase().trim() == "false")
 winston.info("Attempting to start up proxy server...", { process: process.pid });
 
 // Make sure the config path argument is there
-if (!arguments.config || arguments.config.trim() == "")
+if (!args.config || args.config.trim() == "")
 {
     winston.error("No config file specified. Please start noxy with the config path in the argument list. Eg: node Main.js --config=\"./config.js\"", { process: process.pid });
     process.exit();
 }
 
 // Make sure the file exists
-if (!fs.existsSync(arguments.config))
+if (!fs.existsSync(args.config))
 {
-    winston.error(`Could not locate the config file at '${arguments.config}'`, { process: process.pid });
+    winston.error(`Could not locate the config file at '${args.config}'`, { process: process.pid });
     process.exit();
 }
 
 // We have a valid file path, now lets try load it...
-var configPath: string = arguments.config;
+var configPath: string = args.config;
 var config: IConfigFile;
 
 try
@@ -66,7 +66,7 @@ proxy.on("error", function (err: Error, req: http.ServerRequest, res: http.Serve
     res.end(err.message);
 });
 
-try 
+try
 {
     // Now create each of the virtual servers
     for (var i = 0, l = config.proxies.length; i < l; i++)
