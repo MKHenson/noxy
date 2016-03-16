@@ -8,7 +8,7 @@ var outDir = "./server";
 // Builds each of the ts files into JS files in the output folder
 gulp.task('ts-code', function() {
 
-    return gulp.src(['src/lib/Main.ts', 'src/**/*.ts', 'src/**/*.json'], { base: "src/lib" })
+    return gulp.src(['src/Main.ts', 'src/**/*.ts', 'src/**/*.json'], { base: "src/" })
         .pipe(ts({
             "module": "commonjs",
             "removeComments": false,

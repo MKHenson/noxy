@@ -12,8 +12,8 @@
         "outDir": "./server"
     },
     "files": [
-        "src/lib/references.d.ts",
-        "src/lib/main.ts",
-        "src/lib/startup.ts"
+        "src/references.d.ts",
+        "src/main.ts",
+        "src/startup.ts"
     ]
 }
