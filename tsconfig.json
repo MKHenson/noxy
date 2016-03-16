@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "removeComments": false,
+        "noEmitOnError": true,
+        "declaration": false,
+        "sourceMap": false,
+        "preserveConstEnums": true,
+        "target": "es5",
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "outDir": "./server"
+    },
+    "files": [
+        "lib/Main.ts",
+        "lib/Startup.ts"
+    ]
+}
