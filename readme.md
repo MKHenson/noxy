@@ -1,5 +1,5 @@
 # noxy
-Noxy is a node based proxy service, configurable through a config file. The underlying proxy module is based on (http-proxy)[https://github.com/nodejitsu/node-http-proxy]
+Noxy is a node based proxy service, configurable through a config file. The underlying proxy module is based on [http-proxy](https://github.com/nodejitsu/node-http-proxy)
 by nodejitsu.
 
 ## Current stable version
@@ -53,7 +53,7 @@ node Main.js --config="config.json" --numThreads="4" --logging="true" --logFile=
 
 ## Setting up the paths
 
-You can find a detailed breakdown of all config options in the definition (file)[./src/definitions/custom/config.d.ts].
+You can find a detailed breakdown of all config options in the definition [file](./src/definitions/custom/config.d.ts).
 Below is an example file that demonstrates a potential setup using a mixture of http endpoints as well as a web socket rule
 
 ```
