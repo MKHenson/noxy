@@ -3,7 +3,7 @@ Noxy is a node based proxy service, configurable through a config file. The unde
 by nodejitsu.
 
 ## Current stable version
-* v0.1.1
+* v0.1.2
 
 ## Requirements
 * Node
