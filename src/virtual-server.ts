@@ -65,6 +65,8 @@ export class VirtualServer
             {
                 winston.info(`Virtual secure server running, listening on port ${serverConfig.port}`, { process: pid });
             });
+
+            httpsServer.on('upgrade', this.onSocketRequest.bind(this));
         }
 
 
@@ -74,7 +76,35 @@ export class VirtualServer
         {
             winston.info(`Virtual server running, listening on port ${serverConfig.port}`, { process: pid });
         });
+
+        server.on('upgrade', this.onSocketRequest.bind(this));
     }
+
+    /**
+     * Called when we get a socket request
+     */
+    onSocketRequest(req: http.ServerRequest, socket, head)
+    {
+        console.log("Got web socket request");
+        var cfg = this._cfg;
+        var proxy = this._proxy;
+        var fullURI: string = `${((<any>req.connection).encrypted ? "wss" : "ws")}://${req.headers.host}${req.url}`;
+
+        // You can define here your custom logic to handle the request
+        // and then proxy the request.
+        for (var i = 0, l = cfg.routes.length; i < l; i++) {
+            if (cfg.routes[i].isSocket && fullURI.match(new RegExp(cfg.routes[i].path)))
+            {
+                winston.info(`Received: '${fullURI}', redirecting to '${cfg.routes[i].target}'`, { process: this._pid });
+                proxy.ws(req, socket, head, {
+                    target: cfg.routes[i].target,
+                    secure: cfg.routes[i].secure
+                });
+
+                return;
+            }
+        }
+    };
 
     /**
     * Creates an instance of the virtual server

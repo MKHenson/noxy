@@ -17,6 +17,7 @@ declare module Noxy
             secure: boolean;
             redirects: boolean;
             keepPathURI: boolean;
+            isSocket?: boolean;
         }>;
     }
 
