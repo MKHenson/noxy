@@ -66,6 +66,7 @@ dlldata.c
 *.scc
 *.bat
 config.json
+changes.md
 
 # Chutzpah Test files
 _Chutzpah*
