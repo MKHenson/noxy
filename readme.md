@@ -47,13 +47,13 @@ can set the number of threads in the command line
 
 ```
 node Main.js --config="config.json" --numThreads="max" --logging="true" --logFile="logs.log"
-node Main.js --config="config.json" --numThreads="4" --logging="true" --logFile="logs.log"
+node Main.js --config="config.json" --numThreads="1" --logging="true" --logFile="logs.log"
 ```
 
 ## Setting up the paths
 
 You can find a detailed breakdown of all config options in the definition [file](./src/definitions/custom/config.d.ts).
-Below is an example file that demonstrates a potential setup using a mixture of http endpoints as well as a web socket rule
+Below is an example file that demonstrates a potential setup using a mixture of http endpoints as well as a web socket rules
 
 ```
 {
