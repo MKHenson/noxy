@@ -7,6 +7,7 @@ by nodejitsu.
 
 ## Requirements
 * Node > v6
+* Gulp
 
 ## Installation
 
@@ -19,6 +20,7 @@ cd noxy
 ```
 
 3) Run as an admin / or make sure you have write privileges in the noxy folder
+
 ```
 sudo su
 ```
@@ -37,13 +39,30 @@ OR if you want the dev build
 curl -o- https://raw.githubusercontent.com/MKHenson/noxy/dev/install-script-dev.sh | bash
 ```
 
-5) To start noxy
+5) Install the dependencies
+
 ```
-node Main.js --config="config.json" --logging="true" --logFile="logs.log"
+npm install
+```
+
+6) Run the build task. This will create a dist folder with an example config file. You
+will need to run noxy from this folder. After the project is built, you will also need to
+install npm dependencies from that folder.
+
+```
+gulp build
+cd ./dist
+npm install
+```
+
+6) Starting noxy: The example config is not very useful and has to be tailored to your needs.
+But don't edit the example-config.json file, instead copy it and pass in your copy file on startup.
+```
+node Main.js --config="my-copy-example-config.json" --logging="true" --logFile="logs.log"
 ```
 
 By default noxy will run using all threads available to your application. If however memory is in short supply you
-can set the number of threads in the command line
+can set the number of threads in the command line. Note that it's more useful to debug with 1 thread.
 
 ```
 node Main.js --config="config.json" --numThreads="max" --logging="true" --logFile="logs.log"
