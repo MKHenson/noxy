@@ -6,8 +6,7 @@ by nodejitsu.
 * v0.1.2
 
 ## Requirements
-* Node
-* **Tested Ubuntu v14**
+* Node > v6
 
 ## Installation
 
