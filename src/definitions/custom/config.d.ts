@@ -8,6 +8,12 @@ declare namespace Noxy {
         port: number;
 
         /**
+         * The host to use when creating an http server
+         * Eg: 'localhost' or '0.0.0.0'
+         */
+        host: string;
+
+        /**
          * If true, noxy will setup both a regular and secure port.
          * Eg: true/false
          */

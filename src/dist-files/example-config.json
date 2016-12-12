@@ -2,6 +2,7 @@
     "proxies": [
         {
             "port": 80,
+            "host": "localhost",
             "ssl": false,
             "sslIntermediate": "",
             "sslRoot": "",

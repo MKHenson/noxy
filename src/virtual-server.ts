@@ -54,7 +54,7 @@ export class VirtualServer {
 
             // Create server and listen on the port
             const httpsServer = https.createServer( { key: privateKey, cert: theCert, passphrase: serverConfig.sslPassPhrase, ca: caChain }, this.onServerRequest.bind( this ) );
-            httpsServer.listen( serverConfig.sslPort, function() {
+            httpsServer.listen( serverConfig.sslPort, serverConfig.host, function() {
                 winston.info( `Virtual secure server running, listening on port ${serverConfig.port}`, { process: pid });
             });
 
@@ -64,7 +64,7 @@ export class VirtualServer {
 
         // Create server and listen on the port
         const server = http.createServer( this.onServerRequest.bind( this ) );
-        server.listen( serverConfig.port, function() {
+        server.listen( serverConfig.port, serverConfig.host, function() {
             winston.info( `Virtual server running, listening on port ${serverConfig.port}`, { process: pid });
         });
 
