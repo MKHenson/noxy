@@ -1,6 +1,6 @@
 {
     "name": "noxy",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "Noxy is a node based proxy service, configurable through a config file",
     "main": "gulpfile.js",
     "author": "Mathew Henson",
