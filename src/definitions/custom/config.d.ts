@@ -1,8 +1,6 @@
 ﻿
-declare module Noxy
-{
-    export interface IConfig
-    {
+declare module Noxy {
+    export interface IConfig {
         /**
          * The port noxy listens on for incomming requests
          * Eg: 80
@@ -81,8 +79,7 @@ declare module Noxy
         }>;
     }
 
-    export interface IConfigFile
-    {
+    export interface IConfigFile {
         proxies: Array<IConfig>;
     }
 }
