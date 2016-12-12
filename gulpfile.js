@@ -2,6 +2,7 @@ var gulp = require( 'gulp' );
 var ts = require( 'gulp-typescript' );
 var fs = require( 'fs' );
 var utils = require( './gulp/utils.js' );
+var tslint = require( 'gulp-tslint' );
 
 const tsProject = ts.createProject( 'tsconfig.json' );
 var tsConfig = JSON.parse( fs.readFileSync( 'tsconfig.json' ) );
@@ -24,6 +25,20 @@ gulp.task( 'ts-code', function() {
 });
 
 /**
+ * Ensures the code quality is up to scratch
+ */
+gulp.task( 'tslint', function() {
+    return tsProject.src()
+        .pipe( tslint( {
+            configuration: 'tslint.json',
+            formatter: 'verbose'
+        }) )
+        .pipe( tslint.report( {
+            emitError: false
+        }) )
+});
+
+/**
  * Copies the distribution files from src to the dist folder
  */
 gulp.task( 'dist-files', function() {
@@ -34,4 +49,4 @@ gulp.task( 'dist-files', function() {
 gulp.task( 'bump-patch', function() { return utils.bumpVersion( utils.bumpPatchNum, configFiles ) });
 gulp.task( 'bump-minor', function() { return utils.bumpVersion( utils.bumpMidNum, configFiles ) });
 gulp.task( 'bump-major', function() { return utils.bumpVersion( utils.bumpMajorNum, configFiles ) });
-gulp.task( 'build', [ 'ts-code', 'dist-files' ] );
+gulp.task( 'build', [ 'ts-code', 'tslint', 'dist-files' ] );

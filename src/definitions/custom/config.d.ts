@@ -1,5 +1,5 @@
 ﻿
-declare module Noxy {
+declare namespace Noxy {
     export interface IConfig {
         /**
          * The port noxy listens on for incomming requests
@@ -84,7 +84,6 @@ declare module Noxy {
     }
 }
 
-declare module "noxy"
-{
+declare module 'noxy' {
     export = Noxy;
 }
