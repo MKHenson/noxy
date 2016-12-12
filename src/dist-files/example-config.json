@@ -1,0 +1,39 @@
+{
+    "proxies": [
+        {
+            "port": 80,
+            "ssl": false,
+            "sslIntermediate": "",
+            "sslRoot": "",
+            "sslCert": "",
+            "sslKey": "",
+            "sslPassPhrase": "",
+            "sslPort": 443,
+            "routes": [
+                {
+                    "path": "localhost",
+                    "target": "http://localhost:5001",
+                    "secure": false
+                },
+                {
+                    "path": "127.0.0.1",
+                    "target": "http://localhost:8001",
+                    "secure": false
+                },
+                {
+                    "path": "127.0.0.1:5002",
+                    "target": "http://localhost:5001",
+                    "secure": false,
+                    "redirect": true,
+                    "keepPathURI": true
+                },
+                {
+                    "path": "docs\\.website\\.com",
+                    "target": "http://localhost:3500",
+                    "secure": false,
+                    "isSocket": true
+                }
+            ]
+        }
+    ]
+}

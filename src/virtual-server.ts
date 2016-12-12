@@ -26,27 +26,27 @@ export class VirtualServer {
 
         // If we use SSL then start listening for that as well
         if ( serverConfig.ssl ) {
-            if ( serverConfig.sslIntermediate != "" && !fs.existsSync( serverConfig.sslIntermediate ) ) {
+            if ( serverConfig.sslIntermediate != "" && !fs.existsSync( serverConfig.sslIntermediate! ) ) {
                 winston.error( `Could not find sslIntermediate: '${serverConfig.sslIntermediate}'`, { process: this._pid });
                 process.exit();
             }
 
-            if ( serverConfig.sslCert != "" && !fs.existsSync( serverConfig.sslCert ) ) {
+            if ( serverConfig.sslCert != "" && !fs.existsSync( serverConfig.sslCert! ) ) {
                 winston.error( `Could not find sslIntermediate: '${serverConfig.sslCert}'`, { process: this._pid });
                 process.exit();
             }
 
-            if ( serverConfig.sslRoot != "" && !fs.existsSync( serverConfig.sslRoot ) ) {
+            if ( serverConfig.sslRoot != "" && !fs.existsSync( serverConfig.sslRoot! ) ) {
                 winston.error( `Could not find sslIntermediate: '${serverConfig.sslRoot}'`, { process: this._pid });
                 process.exit();
             }
 
-            if ( serverConfig.sslKey != "" && !fs.existsSync( serverConfig.sslKey ) ) {
+            if ( serverConfig.sslKey != "" && !fs.existsSync( serverConfig.sslKey! ) ) {
                 winston.error( `Could not find sslIntermediate: '${serverConfig.sslKey}'`, { process: this._pid });
                 process.exit();
             }
 
-            var caChain = [ fs.readFileSync( serverConfig.sslIntermediate ), fs.readFileSync( serverConfig.sslRoot ) ];
+            var caChain = [ fs.readFileSync( serverConfig.sslIntermediate! ), fs.readFileSync( serverConfig.sslRoot! ) ];
             var privateKey = serverConfig.sslKey ? fs.readFileSync( serverConfig.sslKey ) : null;
             var theCert = serverConfig.sslCert ? fs.readFileSync( serverConfig.sslCert ) : null;
 

@@ -2,15 +2,18 @@
     "command": "gulp",
     "isShellCommand": true,
     "args": [
-         "--no-color"
+        "--no-color"
     ],
     "tasks": [
-		{
-			"taskName": "build-all",
-			"isBuildCommand": true,
-			"showOutput": "always",
+        {
+            "taskName": "build",
+            "isBuildCommand": true,
+            "showOutput": "always",
             "problemMatcher": {
-                "fileLocation": ["relative", "${workspaceRoot}"],
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
                 "pattern": {
                     "regexp": "^(.*)\\((.*),(.*)\\):\\s(error|warning)\\s(.*)$",
                     "file": 1,
@@ -20,6 +23,6 @@
                     "message": 5
                 }
             }
-		}
-	]
+        }
+    ]
 }

@@ -40,7 +40,7 @@ if ( !fs.existsSync( args.config ) ) {
 
 // We have a valid file path, now lets try load it...
 var configPath: string = args.config;
-var config: IConfigFile;
+var config: IConfigFile | undefined;
 
 try {
     // Load config
@@ -67,8 +67,8 @@ proxy.on( "error", function( err: Error, req: http.ServerRequest, res: http.Serv
 
 try {
     // Now create each of the virtual servers
-    for ( var i = 0, l = config.proxies.length; i < l; i++ )
-        new VirtualServer( proxy, config.proxies[ i ] );
+    for ( var i = 0, l = config!.proxies.length; i < l; i++ )
+        new VirtualServer( proxy, config!.proxies[ i ] );
 }
 catch ( err ) {
     winston.error( err.toString(), { process: process.pid });
